@@ -25,6 +25,7 @@ class Season
     private $description;
 
     #[ORM\ManyToOne(targetEntity: Program::class, inversedBy: 'seasons')]
+    #[ORM\JoinColumn(nullable: false)]
     private $program;
 
     #[ORM\OneToMany(mappedBy: 'season', targetEntity: Episode::class, orphanRemoval: true)]
