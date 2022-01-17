@@ -3,7 +3,12 @@
 {% block title %}Hello CategoryController!{% endblock %}
 
 {% block body %}
-    {% for category in category %}
-        <a href="{{ path('category_show', { categoryName: category.name }) }}">{{category.name}}</a>
-    {% endfor %}
+    <ul>
+        {% for category in category %}
+            <li>
+                <a href="{{ path('category_show', { categoryName: category.name }) }}">{{category.name}}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    
 {% endblock %}
