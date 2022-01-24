@@ -2,7 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Program;
+use App\Entity\Season;
+use App\Repository\EpisodeRepository;
 use App\Repository\ProgramRepository;
+use App\Repository\SeasonRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,18 +25,26 @@ class ProgramController extends AbstractController
     }
     
     #[Route('/{id}', methods: ['GET'], requirements: ['id' => '\d+'], name: 'show')]
-    public function show(int $id, ProgramRepository $programRepository): Response
+    public function show(Program $program): Response
     {
-        $program = $programRepository->findOneBy(['id' => $id]);
 
         if (!$program) {
             throw $this->createNotFoundException(
-                'No program with id : '.$id.' found in program table.'
+                'No program with id : '.$program.' found in program table.'
             );
         }
-
         return $this->render('program/show.html.twig', [
             'program' => $program,
         ]);
     }
+
+    #[Route('/{program}/seasons/{season}', methods: ['GET'], name: 'showSeason')]
+    public function showSeason(Program $program, Season $season): Response
+    {
+        return $this->render('program/showSeason.html.twig', [
+            'program' => $program,
+            "season" => $season
+        ]);
+    }
+
 }

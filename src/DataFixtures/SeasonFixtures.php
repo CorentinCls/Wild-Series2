@@ -14,14 +14,14 @@ class SeasonFixtures extends Fixture implements DependentFixtureInterface
                 "number" => 1,
                 "year" => 2018,
                 "description" => "Dans cette saison, homer va devenir un nouvel homme ...",
-                "programReference" => "Malcom"
+                "programReference" => "Program_Les simpsons"
             ],
 
             [
                 "number" => 2,
                 "year" => 2019,
                 "description" => "Dans cette saison, Marge va devenir une nouvelle femme ...",
-                "programReference" => "Malcom"
+                "programReference" => "Program_Les simpsons"
             ],
         
 
@@ -29,14 +29,14 @@ class SeasonFixtures extends Fixture implements DependentFixtureInterface
                 "number" => 3,
                 "year" => 2020,
                 "description" => "Dans cette saison, Bart va devenir un gentil garçon ...",
-                "programReference" => "Malcom"
+                "programReference" => "Program_Les simpsons"
             ],
 
             [
                 "number" => 4,
                 "year" => 2021,
                 "description" => "Dans cette saison, Maggie va apprendre à parler ...",
-                "programReference" => "Malcom"
+                "programReference" => "Program_Les simpsons"
             ]
 
         ];
@@ -51,7 +51,10 @@ class SeasonFixtures extends Fixture implements DependentFixtureInterface
             $season->setYear($seasonData['year']);
             $season->setDescription($seasonData['description']);
 
+
             $season->setProgram($this->getReference($seasonData['programReference']));
+            $this->addReference('Season_' . $seasonData['number'], $season);
+
             $manager->persist($season);
         }
         $manager->flush();

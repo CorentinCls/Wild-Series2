@@ -3,5 +3,15 @@
 {% block title %}Hello DefaultController!{% endblock %}
 
 {% block body %}
-    {{program.summary}}
+
+    <h1>Summary</h1>
+    <p>{{program.summary}}</p>
+
+    <h2>Seasons</h2>
+    <ul>
+    {% for season in program.seasons %}
+        <li><a href="{{ path("program_showSeason", { program: program.id, season : season.id }) }}" >{{season.id}}</a></li>
+    {% endfor %}
+    </ul>
+
 {% endblock %}
