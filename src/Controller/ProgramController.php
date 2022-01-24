@@ -69,7 +69,7 @@ class ProgramController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted())
+        if($form->isSubmitted() && $form->isValid())
         {
             // Persist Category Object
             $entityManager->persist($program);
