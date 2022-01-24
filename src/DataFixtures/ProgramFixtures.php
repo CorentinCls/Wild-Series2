@@ -14,7 +14,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
                 "title" => 'Les simpsons',
                 "summary" => "Les Simpson (The Simpsons) sont une série télévisée d'animation américaine pour adultes créée par Matt Groening et diffusée depuis le 17 décembre 1989 sur le réseau Fox. Elle met en scène les Simpson, stéréotype d'une famille de classe moyenne américaine. Leurs aventures servent une satire du mode de vie américain.",
                 "poster" => "https://picsum.photos/200/300",
-                "categoryreference" => "Category_Animation"
+                "categoryreference" => "Category_Animation",
             ],
 
             [
@@ -56,6 +56,13 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
 
             $this->addReference('Program_' . $programData['title'], $program);
             $program->setCategory($this->getReference($programData['categoryreference']));
+
+            if (preg_match("/Les simpsons/i", $programData['title'])) {
+                foreach (ActorFixtures::ACTORS as $i) {
+                    $program->addActor($this->getReference('Actor_' . $i));
+                }
+            }
+
             $manager->persist($program);
 
         }
@@ -67,6 +74,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             CategoryFixtures::class,
+            ActorFixtures::class,
         ];
     }
 
